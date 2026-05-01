@@ -1,0 +1,73 @@
+/* ===================================================
+   index.css — Global Reset, Fonts & CSS Variables
+   Three fonts: Playfair Display (headings), Cormorant
+   Garamond (body), Great Vibes (cursive accents).
+   =================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Great+Vibes&display=swap');
+
+/* ---- Design Tokens ---- */
+:root {
+  /* Signature beige palette */
+  --beige: #dbc2ad;
+  --beige-light: #ecdfd4;
+  --beige-dark: #c9a991;
+  --cream: #f5ece4;
+
+  /* Chocolate accent — warm brown to complement beige */
+  --rose: #8b6654;
+  --rose-light: #a68776;
+  --rose-gold: #6b4a3a;
+  --rose-glow: rgba(107, 74, 58, 0.15);
+
+  /* Text colors */
+  --text-dark: #3b2f2f;
+  --text-body: #5a4a3a;
+  --text-muted: #8a7565;
+
+  /* Fonts */
+  --font-heading: 'Playfair Display', Georgia, serif;
+  --font-body: 'Cormorant Garamond', Georgia, serif;
+  --font-script: 'Great Vibes', cursive;
+}
+
+/* Reset */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: var(--text-dark);
+  line-height: 1.8;
+  background-color: var(--beige);
+  overflow-x: hidden;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* ---- Custom Scrollbar — rose gold themed ---- */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--beige-light);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--rose-light);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--rose-gold);
+}
