@@ -1,7 +1,7 @@
 /* ===================================================
-   Navbar.jsx — Elegant Navigation with Active Tracking
-   Features: brand name in cursive, rose gold accents,
-   scroll-based shrink, and active section highlighting.
+   Navbar.jsx — Mobile-First Navigation
+   Features: hamburger menu on mobile, slide-in drawer,
+   touch-friendly tap targets, active section tracking.
    =================================================== */
 
 import { useState, useEffect } from 'react';
@@ -9,13 +9,14 @@ import { useState, useEffect } from 'react';
 function Navbar() {
   const [activeSection, setActiveSection] = useState('home');
   const [isScrolled, setIsScrolled] = useState(false);
+  // Controls whether the mobile menu drawer is open
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      // Shrink navbar after scrolling 50px
       setIsScrolled(window.scrollY > 50);
 
-      // Determine which section is currently visible
+      // Determine which section is currently in view
       const sections = ['contact', 'menu', 'about', 'home'];
       for (const id of sections) {
         const el = document.getElementById(id);
@@ -33,30 +34,103 @@ function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Close the menu when a link is tapped (mobile)
+  const handleLinkClick = () => {
+    setIsMenuOpen(false);
+  };
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMenuOpen]);
+
   return (
-    <nav className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
-      {/* Brand name in cursive script */}
-      <a href="#home" className="nav-brand">Okachu</a>
+    <>
+      <nav className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
+        {/* Brand name — always visible */}
+        <a href="#home" className="nav-brand" onClick={handleLinkClick}>
+          Okachu
+        </a>
 
-      {/* Small decorative dot separator */}
-      <span className="nav-separator"></span>
+        {/* Desktop nav links — hidden on mobile */}
+        <span className="nav-separator"></span>
+        <div className="nav-links nav-links-desktop">
+          <a href="#home" className={activeSection === 'home' ? 'active' : ''}>
+            Home
+          </a>
+          <a href="#about" className={activeSection === 'about' ? 'active' : ''}>
+            About
+          </a>
+          <a href="#menu" className={activeSection === 'menu' ? 'active' : ''}>
+            Menu
+          </a>
+          <a href="#contact" className={activeSection === 'contact' ? 'active' : ''}>
+            Contact
+          </a>
+        </div>
 
-      {/* Navigation links */}
-      <div className="nav-links">
-        <a href="#home" className={activeSection === 'home' ? 'active' : ''}>
+        {/* Hamburger button — visible only on mobile */}
+        <button
+          className={`hamburger ${isMenuOpen ? 'open' : ''}`}
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          aria-label="Toggle navigation menu"
+        >
+          <span className="hamburger-line"></span>
+          <span className="hamburger-line"></span>
+          <span className="hamburger-line"></span>
+        </button>
+      </nav>
+
+      {/* Mobile overlay — dims the background when menu is open */}
+      <div
+        className={`mobile-overlay ${isMenuOpen ? 'visible' : ''}`}
+        onClick={() => setIsMenuOpen(false)}
+      ></div>
+
+      {/* Mobile slide-in drawer menu */}
+      <div className={`mobile-menu ${isMenuOpen ? 'open' : ''}`}>
+        <a
+          href="#home"
+          className={activeSection === 'home' ? 'active' : ''}
+          onClick={handleLinkClick}
+        >
           Home
         </a>
-        <a href="#about" className={activeSection === 'about' ? 'active' : ''}>
+        <a
+          href="#about"
+          className={activeSection === 'about' ? 'active' : ''}
+          onClick={handleLinkClick}
+        >
           About
         </a>
-        <a href="#menu" className={activeSection === 'menu' ? 'active' : ''}>
+        <a
+          href="#menu"
+          className={activeSection === 'menu' ? 'active' : ''}
+          onClick={handleLinkClick}
+        >
           Menu
         </a>
-        <a href="#contact" className={activeSection === 'contact' ? 'active' : ''}>
+        <a
+          href="#contact"
+          className={activeSection === 'contact' ? 'active' : ''}
+          onClick={handleLinkClick}
+        >
           Contact
         </a>
+
+        {/* Decorative brand in the drawer */}
+        <div className="mobile-menu-brand">
+          <span>Okachu</span>
+        </div>
       </div>
-    </nav>
+    </>
   );
 }
 

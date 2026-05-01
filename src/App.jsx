@@ -16,6 +16,7 @@ import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
 import Ingredients from './components/Ingredients';
+import Contact from './components/Contact';
 
 function App() {
   // Initialize scroll reveal animations & progress bar
@@ -34,32 +35,39 @@ function App() {
 
       {/* Main content — centered, max-width 820px */}
       <div className="content-wrapper">
-        {/* Hero — logo, brand name, cursive subtitle */}
+        {/* 1. Hero — logo, brand name, cursive subtitle */}
         <Hero />
 
-        {/* Gradient divider between sections */}
+        {/* Gradient divider */}
         <div className="section-divider"></div>
 
-        {/* About — "Our Story" with staggered reveals */}
+        {/* 2. About — "Our Story" with staggered reveals */}
         <About />
 
         {/* Gradient divider */}
         <div className="section-divider"></div>
 
-        {/* Ingredients — interactive pill tags */}
+        {/* 3. Ingredients — interactive pill tags */}
         <Ingredients />
 
         {/* Gradient divider */}
         <div className="section-divider"></div>
 
-        {/* Footer — branded, with links */}
-        <footer id="contact" className="footer reveal">
+        {/* 4. Contact — WhatsApp links for Joyce & Irene */}
+        <Contact />
+
+        {/* Gradient divider */}
+        <div className="section-divider"></div>
+
+        {/* Footer */}
+        <footer className="footer reveal">
           <p className="footer-script">Okachu</p>
           <p className="footer-tagline">Artisan Choux Pastry</p>
           <div className="footer-links">
             <a href="#home">Home</a>
             <a href="#about">About</a>
             <a href="#menu">Menu</a>
+            <a href="#contact">Contact</a>
           </div>
           <p className="footer-copy">
             &copy; 2026 OKACHU &mdash; Dumai, Riau, Indonesia

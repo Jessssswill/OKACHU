@@ -134,6 +134,8 @@
   text-align: center;
   padding: 80px 0 60px;
   position: relative;
+  /* Offset for sticky navbar when scrolling to #home */
+  scroll-margin-top: 70px;
 }
 
 /* Decorative corner flourishes */
@@ -244,6 +246,8 @@
   padding: 72px 0;
   text-align: center;
   position: relative;
+  /* Offset for sticky navbar when scrolling to section */
+  scroll-margin-top: 70px;
 }
 
 /* Decorative section divider */
@@ -442,12 +446,114 @@
 }
 
 /* ===================================================
+   CONTACT — WhatsApp Cards
+   =================================================== */
+.contact-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 420px;
+  margin: 0 auto 24px;
+}
+
+.contact-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 24px;
+  background-color: rgba(255, 255, 255, 0.35);
+  border: 1px solid rgba(166, 135, 118, 0.2);
+  border-radius: 14px;
+  text-decoration: none;
+  color: var(--text-dark);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  min-height: 72px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.contact-card:hover {
+  background-color: rgba(255, 255, 255, 0.55);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(90, 62, 43, 0.1);
+  border-color: #25d366;
+}
+
+.contact-card:active {
+  transform: scale(0.98);
+}
+
+.contact-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: #25d366;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.contact-card:hover .contact-icon {
+  transform: scale(1.08);
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  flex: 1;
+}
+
+.contact-name {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  letter-spacing: 1px;
+}
+
+.contact-phone {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  letter-spacing: 0.5px;
+  margin-top: 2px;
+}
+
+.contact-cta {
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #25d366;
+  letter-spacing: 1px;
+  white-space: nowrap;
+  transition: transform 0.3s ease;
+}
+
+.contact-card:hover .contact-cta {
+  transform: translateX(4px);
+}
+
+.contact-note {
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-style: italic;
+  color: var(--text-muted);
+  letter-spacing: 0.5px;
+  margin-top: 8px;
+}
+
+/* ===================================================
    FOOTER
    =================================================== */
 .footer {
   text-align: center;
   padding: 48px 0 36px;
   border-top: 1px solid rgba(196, 134, 140, 0.15);
+  scroll-margin-top: 70px;
 }
 
 .footer-script {
@@ -585,70 +691,526 @@
 }
 
 /* ===================================================
-   RESPONSIVE — Mobile adjustments
+   HAMBURGER BUTTON — visible only on mobile
    =================================================== */
-@media (max-width: 640px) {
-  .navbar {
-    gap: 12px;
-    padding: 18px 16px;
-    flex-wrap: wrap;
+.hamburger {
+  display: none; /* Hidden on desktop */
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  margin-left: auto;
+  z-index: 110;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.hamburger-line {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background-color: var(--text-dark);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+
+/* Animate into an X when menu is open */
+.hamburger.open .hamburger-line:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.open .hamburger-line:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.open .hamburger-line:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* ===================================================
+   MOBILE OVERLAY — dims background when menu is open
+   =================================================== */
+.mobile-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(59, 47, 47, 0.3);
+  z-index: 90;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.mobile-overlay.visible {
+  opacity: 1;
+}
+
+/* ===================================================
+   MOBILE SLIDE-IN DRAWER MENU
+   =================================================== */
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: 0;
+  right: -280px;
+  width: 280px;
+  height: 100vh;
+  height: 100dvh; /* Dynamic viewport height for mobile browsers */
+  background-color: var(--cream);
+  z-index: 95;
+  padding: 100px 36px 40px;
+  flex-direction: column;
+  gap: 8px;
+  transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: -8px 0 30px rgba(59, 47, 47, 0.1);
+}
+
+.mobile-menu.open {
+  right: 0;
+}
+
+.mobile-menu a {
+  text-decoration: none;
+  color: var(--text-muted);
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: capitalize;
+  padding: 16px 12px;
+  border-radius: 8px;
+  transition: all 0.25s ease;
+  /* Touch-friendly: min 48px tap target */
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.mobile-menu a:hover,
+.mobile-menu a:active {
+  background-color: rgba(166, 135, 118, 0.12);
+  color: var(--rose-gold);
+}
+
+.mobile-menu a.active {
+  color: var(--rose-gold);
+  font-weight: 600;
+  background-color: rgba(166, 135, 118, 0.1);
+}
+
+/* Decorative brand at the bottom of the drawer */
+.mobile-menu-brand {
+  margin-top: auto;
+  text-align: center;
+  padding-top: 24px;
+  border-top: 1px solid rgba(166, 135, 118, 0.15);
+}
+
+.mobile-menu-brand span {
+  font-family: var(--font-script);
+  font-size: 1.6rem;
+  color: var(--rose-gold);
+  opacity: 0.6;
+}
+
+/* ===================================================
+   RESPONSIVE — Tablet (max-width: 768px)
+   =================================================== */
+@media (max-width: 768px) {
+  .hero-brand-name {
+    font-size: 2.6rem;
+    letter-spacing: 14px;
+    text-indent: 14px;
   }
 
-  .nav-brand {
-    font-size: 1.3rem;
-    width: 100%;
-    text-align: center;
-    margin-right: 0;
-    margin-bottom: 8px;
+  .hero-script {
+    font-size: 1.5rem;
+  }
+
+  .hero-tagline {
+    font-size: 0.9rem;
+    letter-spacing: 4px;
+  }
+
+  .section {
+    padding: 56px 0;
+  }
+
+  .section-title {
+    font-size: 1.25rem;
+    letter-spacing: 4px;
+  }
+
+  .lead-text {
+    font-size: 1.15rem;
+  }
+
+  .section-text {
+    font-size: 1.05rem;
+  }
+
+  .content-wrapper {
+    padding: 0 24px;
+  }
+}
+
+/* ===================================================
+   RESPONSIVE — Mobile (max-width: 640px)
+   Hamburger menu, drawer, touch-friendly sizing
+   =================================================== */
+@media (max-width: 640px) {
+  /* Show hamburger, hide desktop links */
+  .hamburger {
+    display: flex;
+  }
+
+  .nav-links-desktop {
+    display: none;
   }
 
   .nav-separator {
     display: none;
   }
 
-  .nav-links {
-    gap: 20px;
+  /* Show mobile drawer and overlay */
+  .mobile-menu {
+    display: flex;
   }
 
-  .nav-links a {
-    font-size: 0.82rem;
-    letter-spacing: 1.5px;
+  .mobile-overlay {
+    display: block;
+    pointer-events: none;
   }
 
-  .hero-brand-name {
-    font-size: 2.2rem;
-    letter-spacing: 12px;
-    text-indent: 12px;
+  .mobile-overlay.visible {
+    pointer-events: auto;
   }
 
-  .hero-script {
+  /* Navbar: brand left, hamburger right */
+  .navbar {
+    justify-content: space-between;
+    padding: 16px 20px;
+    gap: 0;
+  }
+
+  .navbar.scrolled {
+    padding: 12px 20px;
+  }
+
+  .nav-brand {
+    margin-right: 0;
     font-size: 1.4rem;
   }
 
+  /* Hero adjustments */
+  .hero {
+    padding: 56px 0 44px;
+  }
+
+  .hero-logo-img {
+    width: 110px;
+    height: 110px;
+  }
+
+  .hero-brand-name {
+    font-size: 2rem;
+    letter-spacing: 10px;
+    text-indent: 10px;
+  }
+
+  .hero-script {
+    font-size: 1.3rem;
+  }
+
+  .hero-tagline {
+    font-size: 0.8rem;
+    letter-spacing: 3px;
+  }
+
+  .hero-divider-line {
+    width: 50px;
+  }
+
+  /* Hide decorative flourishes on small screens */
+  .hero::before,
+  .hero::after {
+    display: none;
+  }
+
+  /* Content */
   .content-wrapper {
-    padding: 0 20px;
+    padding: 0 18px;
   }
 
   .section {
-    padding: 48px 0;
+    padding: 44px 0;
+  }
+
+  .section-label {
+    font-size: 1.3rem;
+  }
+
+  .section-title {
+    font-size: 1.15rem;
+    letter-spacing: 3px;
+    margin-bottom: 28px;
   }
 
   .lead-text {
-    font-size: 1.1rem;
+    font-size: 1.05rem;
+    line-height: 1.75;
+    margin-bottom: 28px;
   }
 
   .lead-text::before {
-    font-size: 3rem;
-    top: -16px;
-    left: -4px;
+    font-size: 2.8rem;
+    top: -14px;
+    left: -2px;
   }
 
+  .section-text {
+    font-size: 1rem;
+    line-height: 1.85;
+  }
+
+  .section-text p + p {
+    margin-top: 18px;
+  }
+
+  /* Ingredient tags — larger tap targets for touch */
   .ingredients-grid {
-    gap: 8px;
+    gap: 10px;
   }
 
   .ingredient-tag {
-    padding: 8px 16px;
-    font-size: 0.92rem;
+    padding: 10px 18px;
+    font-size: 0.95rem;
+    min-height: 44px; /* iOS recommended minimum tap target */
+    display: inline-flex;
+    align-items: center;
+  }
+
+  /* Contact cards — full width on mobile */
+  .contact-cards {
+    max-width: 100%;
+  }
+
+  .contact-card {
+    padding: 16px 18px;
+    gap: 14px;
+  }
+
+  .contact-icon {
+    width: 42px;
+    height: 42px;
+  }
+
+  .contact-icon svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .contact-name {
+    font-size: 1rem;
+  }
+
+  .contact-phone {
+    font-size: 0.88rem;
+  }
+
+  .contact-cta {
+    font-size: 0.8rem;
+  }
+
+  .contact-note {
+    font-size: 0.82rem;
+  }
+
+  /* Scroll offset for mobile navbar (shorter) */
+  .hero,
+  .section,
+  .footer {
+    scroll-margin-top: 56px;
+  }
+
+  /* Footer */
+  .footer-script {
+    font-size: 1.6rem;
+  }
+
+  .footer-links {
+    gap: 20px;
+  }
+
+  .footer-links a {
+    /* Touch-friendly tap targets */
+    padding: 8px 4px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  /* Disable hover effects on touch — use active state instead */
+  .ingredient-tag:hover {
+    transform: none;
+    box-shadow: none;
+  }
+
+  .ingredient-tag:active {
+    background-color: rgba(166, 135, 118, 0.3);
+    border-color: var(--rose-light);
+    transform: scale(0.97);
+  }
+
+  .hero-logo-img:hover {
+    transform: none;
+  }
+
+  .hero-logo-img:active {
+    transform: scale(0.96);
   }
 }
+
+/* ===================================================
+   RESPONSIVE — Small phones (max-width: 380px)
+   iPhone SE, iPhone Mini, small Android devices
+   =================================================== */
+@media (max-width: 380px) {
+  .content-wrapper {
+    padding: 0 14px;
+  }
+
+  .hero-brand-name {
+    font-size: 1.7rem;
+    letter-spacing: 8px;
+    text-indent: 8px;
+  }
+
+  .hero-script {
+    font-size: 1.1rem;
+  }
+
+  .hero-logo-img {
+    width: 95px;
+    height: 95px;
+  }
+
+  .hero-tagline {
+    font-size: 0.72rem;
+    letter-spacing: 2px;
+  }
+
+  .section-title {
+    font-size: 1.05rem;
+    letter-spacing: 2.5px;
+  }
+
+  .lead-text {
+    font-size: 0.98rem;
+  }
+
+  .section-text {
+    font-size: 0.95rem;
+  }
+
+  .ingredient-tag {
+    padding: 8px 14px;
+    font-size: 0.88rem;
+  }
+
+  .mobile-menu {
+    width: 250px;
+    right: -250px;
+    padding: 90px 28px 32px;
+  }
+
+  .mobile-menu a {
+    font-size: 1rem;
+    padding: 14px 10px;
+  }
+}
+
+/* ===================================================
+   SAFE AREA — iPhone notch / Dynamic Island support
+   =================================================== */
+@supports (padding-top: env(safe-area-inset-top)) {
+  .navbar {
+    padding-top: calc(16px + env(safe-area-inset-top));
+  }
+
+  .navbar.scrolled {
+    padding-top: calc(12px + env(safe-area-inset-top));
+  }
+
+  .footer {
+    padding-bottom: calc(36px + env(safe-area-inset-bottom));
+  }
+
+  .mobile-menu {
+    padding-top: calc(100px + env(safe-area-inset-top));
+    padding-bottom: calc(32px + env(safe-area-inset-bottom));
+  }
+}
+
+/* ===================================================
+   TOUCH DEVICE OPTIMIZATION
+   Disable hover effects on touch-only devices
+   =================================================== */
+@media (hover: none) and (pointer: coarse) {
+  .ingredient-tag:hover::before {
+    display: none;
+  }
+
+  .ingredient-tag:hover {
+    background-color: rgba(232, 180, 184, 0.12);
+    border-color: rgba(196, 134, 140, 0.2);
+    transform: none;
+    box-shadow: none;
+    color: var(--text-body);
+  }
+
+  .ingredient-tag:active {
+    background-color: rgba(166, 135, 118, 0.3);
+    transform: scale(0.96);
+    transition: transform 0.1s ease;
+  }
+
+  .ingredient-tag.highlight:hover {
+    background-color: rgba(183, 110, 121, 0.12);
+  }
+
+  .ingredient-tag.highlight:active {
+    background-color: rgba(183, 110, 121, 0.25);
+  }
+
+  .nav-links a:hover::after {
+    width: 0;
+  }
+
+  .hero-logo-img {
+    animation: float 5s ease-in-out infinite;
+  }
+
+  .hero-logo-img:hover {
+    transform: none;
+    box-shadow:
+      0 0 0 6px rgba(232, 180, 184, 0.15),
+      0 8px 32px rgba(183, 110, 121, 0.12);
+  }
+
+  .footer-links a:hover {
+    color: var(--text-muted);
+  }
+
+  .footer-links a:active {
+    color: var(--rose-gold);
+  }
+}
+
