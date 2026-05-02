@@ -1,0 +1,25 @@
+// ===================================================
+// schema.prisma — Database Schema for OKACHU Vouchers
+// Prisma v5 — classic format with url in datasource.
+// ===================================================
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// -------------------------------------------------
+// Voucher Model
+// -------------------------------------------------
+model Voucher {
+  id        Int       @id @default(autoincrement())
+  code      String    @unique
+  isUsed    Boolean   @default(false)
+  character String?
+  claimedAt DateTime?
+  createdAt DateTime  @default(now())
+}
