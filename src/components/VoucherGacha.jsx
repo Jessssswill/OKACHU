@@ -96,7 +96,7 @@ function VoucherGacha() {
   // --------------------------------------------------
   return (
     <section id="surprise" className="section vg-section">
-      <span className="section-label reveal">🎰 Gacha</span>
+      <span className="section-label reveal">Gacha</span>
       <h2 className="section-title reveal reveal-delay-1">Voucher Gacha</h2>
 
       <div className="vg-card reveal reveal-delay-2">
