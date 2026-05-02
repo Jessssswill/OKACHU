@@ -57,15 +57,23 @@ export class VoucherService {
     const randomIndex = Math.floor(Math.random() * CHARACTERS.length);
     const winningCharacter = CHARACTERS[randomIndex];
 
-    // Step 5: Update the database — mark as used & store the character
-    await this.prisma.voucher.update({
-      where: { id: voucher.id },
+    // Step 5: Update the database ATOMICALLY to prevent race conditions
+    // If two users submit the same code at the same time, only one will succeed.
+    const result = await this.prisma.voucher.updateMany({
+      where: { 
+        id: voucher.id,
+        isUsed: false // Ensure it hasn't been used since our last check
+      },
       data: {
         isUsed: true,
         character: winningCharacter.name,
         claimedAt: new Date(),
       },
     });
+
+    if (result.count === 0) {
+      throw new BadRequestException('Maaf, kode ini sudah dipakai.');
+    }
 
     // Step 6: Return the result to the controller
     return {

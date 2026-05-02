@@ -18,10 +18,9 @@ async function bootstrap() {
     methods: ['GET', 'POST'],
   });
 
-  // Render assigns a PORT via environment variable.
-  // Falls back to 3000 for local development.
+  // Railway/Cloud providers require binding to '0.0.0.0' instead of localhost
   const port = process.env.PORT || 3000;
-  await app.listen(port);
+  await app.listen(port, '0.0.0.0');
   console.log(`🚀 Backend running on port ${port}`);
 }
 bootstrap();

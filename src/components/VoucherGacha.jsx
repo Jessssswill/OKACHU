@@ -57,7 +57,7 @@ function VoucherGacha() {
     setResult(null);
 
     try {
-      // Call the NestJS backend
+      // Call the backend API
       const response = await fetch(`${API_URL}/voucher/claim`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -68,7 +68,7 @@ function VoucherGacha() {
 
       // If the server returned an error (400 or 404)
       if (!response.ok) {
-        setError(data.message || 'Terjadi kesalahan.');
+        setError(data.message || data.error || 'Terjadi kesalahan.');
         return;
       }
 
