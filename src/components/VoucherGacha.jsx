@@ -152,7 +152,7 @@ function VoucherGacha() {
             <input
               type="text"
               className="vg-input"
-              placeholder="Contoh: OKACHU-A1B2C3"
+              placeholder="Contoh: OKACHU-ABCDEF"
               value={code}
               onChange={(e) => {
                 setCode(e.target.value.toUpperCase());
