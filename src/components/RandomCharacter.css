@@ -1,0 +1,398 @@
+/* ===================================================
+   RandomCharacter.css — Surprise Character Styles
+   Redesigned for transparent PNGs + wide desktop card.
+   Interactive hover effects, decorative corners, and
+   soft radial glow behind each character.
+   =================================================== */
+
+/* ---- Card Container ---- */
+.rc-card {
+  max-width: 680px;
+  width: 90%;
+  margin: 0 auto;
+  padding: 48px 44px 40px;
+  background: linear-gradient(
+    160deg,
+    rgba(245, 236, 228, 0.7) 0%,
+    rgba(219, 194, 173, 0.5) 50%,
+    rgba(201, 169, 145, 0.35) 100%
+  );
+  border: 1px solid rgba(166, 135, 118, 0.2);
+  border-radius: 28px;
+  box-shadow:
+    0 12px 48px rgba(90, 62, 43, 0.08),
+    0 2px 6px rgba(90, 62, 43, 0.04);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+
+  /* Entrance animation */
+  animation: rc-pop-in 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+/* Card hover lift effect */
+.rc-card:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 20px 60px rgba(90, 62, 43, 0.12),
+    0 4px 12px rgba(90, 62, 43, 0.06);
+}
+
+/* Decorative corner — top-left */
+.rc-card::before {
+  content: '❀';
+  position: absolute;
+  top: 16px;
+  left: 20px;
+  font-size: 1.3rem;
+  color: var(--rose-light);
+  opacity: 0.35;
+  animation: rc-corner-spin 8s linear infinite;
+}
+
+/* Decorative corner — bottom-right */
+.rc-card::after {
+  content: '❀';
+  position: absolute;
+  bottom: 16px;
+  right: 20px;
+  font-size: 1.3rem;
+  color: var(--rose-light);
+  opacity: 0.35;
+  animation: rc-corner-spin 8s linear infinite reverse;
+}
+
+@keyframes rc-corner-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes rc-pop-in {
+  from {
+    opacity: 0;
+    transform: scale(0.85) translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* ---- Heading Text ---- */
+.rc-heading {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  line-height: 1.6;
+  margin-bottom: 16px;
+  letter-spacing: 0.5px;
+}
+
+/* ---- Character Image Wrapper ---- */
+.rc-image-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 12px;
+  position: relative;
+  min-height: 320px;
+}
+
+/* Radial glow behind the transparent character */
+.rc-image-wrapper::before {
+  content: '';
+  position: absolute;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(218, 185, 160, 0.55) 0%,
+    rgba(218, 185, 160, 0.28) 40%,
+    rgba(218, 185, 160, 0) 70%
+  );
+  animation: rc-glow-pulse 3s ease-in-out infinite;
+  z-index: 0;
+}
+
+@keyframes rc-glow-pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.65;
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 1;
+  }
+}
+
+/* Sparkle accent */
+.rc-image-wrapper::after {
+  content: '✦';
+  position: absolute;
+  top: 12px;
+  right: 80px;
+  font-size: 1.1rem;
+  color: var(--rose-gold);
+  opacity: 0.5;
+  animation: rc-sparkle 2s ease-in-out infinite;
+}
+
+@keyframes rc-sparkle {
+  0%, 100% { opacity: 0.3; transform: scale(0.8) rotate(0deg); }
+  50%      { opacity: 0.8; transform: scale(1.2) rotate(15deg); }
+}
+
+/* ---- Character Image ---- */
+.rc-image {
+  width: 460px;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  border: none;
+  border-radius: 0;
+  background: none;
+  filter: drop-shadow(0 8px 24px rgba(107, 74, 58, 0.22));
+  animation: rc-float 4s ease-in-out infinite;
+  transition: transform 0.35s ease, filter 0.35s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.rc-image:hover {
+  transform: scale(1.1) rotate(2deg);
+  filter: drop-shadow(0 14px 36px rgba(107, 74, 58, 0.35));
+}
+
+@keyframes rc-float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-10px); }
+}
+
+/* ---- Character Name Badge ---- */
+.rc-name {
+  display: inline-block;
+  font-family: var(--font-script);
+  font-size: 1.65rem;
+  color: var(--rose-gold);
+  margin-bottom: 28px;
+  letter-spacing: 1px;
+  transition: color 0.3s ease;
+}
+
+.rc-card:hover .rc-name {
+  color: var(--rose);
+}
+
+/* ---- Screenshot Instruction Banner ---- */
+.rc-instruction {
+  background: linear-gradient(
+    135deg,
+    rgba(107, 74, 58, 0.06) 0%,
+    rgba(166, 135, 118, 0.14) 100%
+  );
+  border: 1.5px dashed var(--rose-light);
+  border-radius: 16px;
+  padding: 22px 28px;
+  margin-bottom: 24px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s ease;
+}
+
+.rc-instruction:hover {
+  border-color: var(--rose-gold);
+}
+
+/* Subtle shimmer sweep across the banner */
+.rc-instruction::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.25),
+    transparent
+  );
+  animation: rc-shimmer 3s ease-in-out infinite;
+}
+
+@keyframes rc-shimmer {
+  0%   { left: -100%; }
+  100% { left: 100%; }
+}
+
+.rc-instruction-icon {
+  font-size: 2.2rem;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.rc-instruction-text {
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--text-dark);
+  line-height: 1.7;
+  letter-spacing: 0.3px;
+}
+
+/* ---- Decorative Fake Button ---- */
+.rc-fake-button {
+  display: inline-block;
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  color: #fff;
+  background: linear-gradient(135deg, var(--rose-gold), var(--rose));
+  padding: 16px 44px;
+  border-radius: 30px;
+  cursor: default;
+  box-shadow:
+    0 4px 18px rgba(107, 74, 58, 0.25),
+    0 1px 3px rgba(107, 74, 58, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  user-select: none;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Shimmer highlight on the button */
+.rc-fake-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  animation: rc-shimmer 2.5s ease-in-out infinite 0.5s;
+}
+
+.rc-fake-button:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 8px 28px rgba(107, 74, 58, 0.32),
+    0 2px 8px rgba(107, 74, 58, 0.15);
+}
+
+/* ===================================================
+   RESPONSIVE — Tablet
+   =================================================== */
+@media (max-width: 768px) {
+  .rc-card {
+    max-width: 500px;
+    width: 92%;
+    padding: 36px 28px 30px;
+  }
+
+  .rc-heading {
+    font-size: 1.15rem;
+  }
+
+  .rc-image {
+    width: 380px;
+  }
+
+  .rc-image-wrapper {
+    min-height: 260px;
+  }
+
+  .rc-image-wrapper::before {
+    width: 260px;
+    height: 260px;
+  }
+}
+
+/* ===================================================
+   RESPONSIVE — Mobile
+   =================================================== */
+@media (max-width: 640px) {
+  .rc-card {
+    max-width: 100%;
+    width: 100%;
+    padding: 28px 20px 24px;
+    border-radius: 18px;
+  }
+
+  .rc-heading {
+    font-size: 1.05rem;
+  }
+
+  .rc-image {
+    width: 320px;
+  }
+
+  .rc-image-wrapper {
+    min-height: 220px;
+  }
+
+  .rc-image-wrapper::before {
+    width: 220px;
+    height: 220px;
+  }
+
+  .rc-name {
+    font-size: 1.35rem;
+  }
+
+  .rc-instruction {
+    padding: 18px 18px;
+  }
+
+  .rc-instruction-text {
+    font-size: 0.95rem;
+  }
+
+  .rc-fake-button {
+    font-size: 0.95rem;
+    padding: 14px 32px;
+  }
+}
+
+/* ===================================================
+   RESPONSIVE — Small phones
+   =================================================== */
+@media (max-width: 380px) {
+  .rc-card {
+    padding: 24px 16px 20px;
+  }
+
+  .rc-image {
+    width: 260px;
+  }
+
+  .rc-image-wrapper {
+    min-height: 180px;
+  }
+
+  .rc-image-wrapper::before {
+    width: 180px;
+    height: 180px;
+  }
+
+  .rc-heading {
+    font-size: 0.95rem;
+  }
+
+  .rc-name {
+    font-size: 1.15rem;
+  }
+
+  .rc-fake-button {
+    font-size: 0.88rem;
+    padding: 12px 24px;
+  }
+}

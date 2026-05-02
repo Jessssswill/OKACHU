@@ -5,6 +5,7 @@
    =================================================== */
 
 import './Hero.css';
+import Logo from '../assets/Logo.png';
 
 function Hero() {
   return (
@@ -12,7 +13,7 @@ function Hero() {
       {/* Circular logo — floats gently and scales on hover */}
       <div className="hero-logo reveal-scale">
         <img
-          src="https://placehold.co/180x180/6b4a3a/ffffff?text=O"
+          src={Logo}
           alt="OKACHU Logo"
           className="hero-logo-img"
         />

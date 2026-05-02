@@ -1,0 +1,388 @@
+/* ===================================================
+   VoucherGacha.css — Voucher Gacha Styles
+   Matches the OKACHU beige/chocolate design system.
+   Three states: form input, loading, and result card.
+   =================================================== */
+
+/* ---- Section Override ---- */
+.vg-section {
+  scroll-margin-top: 70px;
+}
+
+/* ---- Card Container ---- */
+.vg-card {
+  max-width: 520px;
+  width: 92%;
+  margin: 0 auto;
+  padding: 44px 40px 36px;
+  background: linear-gradient(
+    160deg,
+    rgba(245, 236, 228, 0.7) 0%,
+    rgba(219, 194, 173, 0.5) 50%,
+    rgba(201, 169, 145, 0.35) 100%
+  );
+  border: 1px solid rgba(166, 135, 118, 0.2);
+  border-radius: 24px;
+  box-shadow:
+    0 12px 48px rgba(90, 62, 43, 0.08),
+    0 2px 6px rgba(90, 62, 43, 0.04);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  animation: vg-fade-in 0.6s ease-out both;
+}
+
+@keyframes vg-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---- Heading & Subtext ---- */
+.vg-heading {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  line-height: 1.5;
+  margin-bottom: 8px;
+}
+
+.vg-subtext {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin-bottom: 28px;
+  line-height: 1.5;
+}
+
+/* ---- Input Field ---- */
+.vg-input {
+  display: block;
+  width: 100%;
+  padding: 14px 18px;
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--text-dark);
+  background-color: rgba(255, 255, 255, 0.45);
+  border: 1.5px solid rgba(166, 135, 118, 0.25);
+  border-radius: 14px;
+  outline: none;
+  text-align: center;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.vg-input::placeholder {
+  color: var(--beige-dark);
+  letter-spacing: 1px;
+  text-transform: none;
+  font-weight: 400;
+}
+
+.vg-input:focus {
+  border-color: var(--rose-gold);
+  background-color: rgba(255, 255, 255, 0.65);
+  box-shadow: 0 0 0 3px rgba(107, 74, 58, 0.08);
+}
+
+.vg-input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ---- Error Message ---- */
+.vg-error {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: #c0392b;
+  margin-top: 14px;
+  padding: 10px 14px;
+  background-color: rgba(192, 57, 43, 0.06);
+  border: 1px solid rgba(192, 57, 43, 0.15);
+  border-radius: 10px;
+  animation: vg-shake 0.4s ease-out;
+}
+
+@keyframes vg-shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-6px); }
+  40% { transform: translateX(6px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(4px); }
+}
+
+/* ---- Submit Button ---- */
+.vg-submit-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 20px;
+  padding: 16px 40px;
+  min-width: 200px;
+  min-height: 52px;
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: #fff;
+  background: linear-gradient(135deg, var(--rose-gold), var(--rose));
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow:
+    0 4px 18px rgba(107, 74, 58, 0.25),
+    0 1px 3px rgba(107, 74, 58, 0.15);
+  transition: all 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+.vg-submit-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow:
+    0 8px 28px rgba(107, 74, 58, 0.3),
+    0 2px 8px rgba(107, 74, 58, 0.15);
+}
+
+.vg-submit-btn:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+.vg-submit-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+
+/* ---- Loading Spinner ---- */
+.vg-spinner {
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  border: 2.5px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: vg-spin 0.7s linear infinite;
+}
+
+@keyframes vg-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ===================================================
+   RESULT STATE — Winning Character Display
+   =================================================== */
+
+.vg-result {
+  animation: vg-result-pop 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes vg-result-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.85) translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.vg-congrats {
+  font-size: 3rem;
+  margin-bottom: 4px;
+  animation: vg-bounce 0.6s ease-out both 0.3s;
+}
+
+@keyframes vg-bounce {
+  0% { transform: scale(0); }
+  50% { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
+
+/* Character image wrapper with radial glow */
+.vg-image-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  min-height: 280px;
+  margin: 12px 0;
+}
+
+.vg-image-wrapper::before {
+  content: '';
+  position: absolute;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(218, 185, 160, 0.55) 0%,
+    rgba(218, 185, 160, 0.28) 40%,
+    rgba(218, 185, 160, 0) 70%
+  );
+  animation: vg-glow 3s ease-in-out infinite;
+  z-index: 0;
+}
+
+@keyframes vg-glow {
+  0%, 100% { transform: scale(1); opacity: 0.65; }
+  50% { transform: scale(1.15); opacity: 1; }
+}
+
+.vg-image {
+  width: 380px;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 24px rgba(107, 74, 58, 0.22));
+  animation: vg-float 4s ease-in-out infinite;
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes vg-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+/* Character name */
+.vg-character-name {
+  display: inline-block;
+  font-family: var(--font-script);
+  font-size: 1.6rem;
+  color: var(--rose-gold);
+  margin-bottom: 24px;
+}
+
+/* Screenshot instruction */
+.vg-instruction {
+  background: linear-gradient(
+    135deg,
+    rgba(107, 74, 58, 0.06) 0%,
+    rgba(166, 135, 118, 0.14) 100%
+  );
+  border: 1.5px dashed var(--rose-light);
+  border-radius: 14px;
+  padding: 18px 24px;
+  margin-bottom: 20px;
+}
+
+.vg-instruction-icon {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.vg-instruction-text {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--text-dark);
+  line-height: 1.7;
+}
+
+/* Reset button */
+.vg-reset-btn {
+  padding: 12px 28px;
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  background: transparent;
+  border: 1.5px solid rgba(166, 135, 118, 0.3);
+  border-radius: 24px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.vg-reset-btn:hover {
+  border-color: var(--rose-gold);
+  color: var(--rose-gold);
+}
+
+/* ===================================================
+   RESPONSIVE — Mobile
+   =================================================== */
+@media (max-width: 640px) {
+  .vg-card {
+    width: 100%;
+    padding: 32px 22px 28px;
+    border-radius: 18px;
+  }
+
+  .vg-heading {
+    font-size: 1.15rem;
+  }
+
+  .vg-input {
+    padding: 12px 14px;
+    font-size: 1rem;
+  }
+
+  .vg-submit-btn {
+    padding: 14px 32px;
+    font-size: 0.95rem;
+    min-width: 180px;
+  }
+
+  .vg-image {
+    width: 300px;
+  }
+
+  .vg-image-wrapper {
+    min-height: 220px;
+  }
+
+  .vg-image-wrapper::before {
+    width: 200px;
+    height: 200px;
+  }
+
+  .vg-character-name {
+    font-size: 1.3rem;
+  }
+
+  .vg-instruction {
+    padding: 16px 18px;
+  }
+
+  .vg-instruction-text {
+    font-size: 0.92rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .vg-card {
+    padding: 24px 16px 22px;
+  }
+
+  .vg-image {
+    width: 240px;
+  }
+
+  .vg-image-wrapper {
+    min-height: 180px;
+  }
+
+  .vg-image-wrapper::before {
+    width: 160px;
+    height: 160px;
+  }
+
+  .vg-heading {
+    font-size: 1.05rem;
+  }
+}

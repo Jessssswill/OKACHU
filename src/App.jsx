@@ -17,6 +17,7 @@ import Hero from './components/Hero';
 import About from './components/About';
 import Ingredients from './components/Ingredients';
 import Contact from './components/Contact';
+import VoucherGacha from './components/VoucherGacha';
 
 function App() {
   // Initialize scroll reveal animations & progress bar
@@ -55,6 +56,12 @@ function App() {
 
         {/* 4. Contact — WhatsApp links for Joyce & Irene */}
         <Contact />
+
+        {/* Gradient divider */}
+        <div className="section-divider"></div>
+
+        {/* 5. Voucher Gacha — enter code to win a character */}
+        <VoucherGacha />
 
         {/* Gradient divider */}
         <div className="section-divider"></div>
