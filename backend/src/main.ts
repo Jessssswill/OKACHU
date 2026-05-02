@@ -13,10 +13,7 @@ async function bootstrap() {
   // --------------------------------------------------
   // CORS — Allow both localhost (dev) and Vercel (prod)
   // --------------------------------------------------
-  app.enableCors({
-    origin: '*',
-    methods: ['GET', 'POST'],
-  });
+  app.enableCors();
 
   // Railway/Cloud providers require binding to '0.0.0.0' instead of localhost
   const port = process.env.PORT || 3000;
