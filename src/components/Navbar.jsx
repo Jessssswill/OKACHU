@@ -68,8 +68,8 @@ function Navbar() {
           <a href="#about" className={activeSection === 'about' ? 'active' : ''}>
             About
           </a>
-          <a href="#menu" className={activeSection === 'menu' ? 'active' : ''}>
-            Menu
+          <a href="#ingredients" className={activeSection === 'ingredients' ? 'active' : ''}>
+            Ingredients
           </a>
           <a href="#contact" className={activeSection === 'contact' ? 'active' : ''}>
             Contact
@@ -111,11 +111,11 @@ function Navbar() {
           About
         </a>
         <a
-          href="#menu"
-          className={activeSection === 'menu' ? 'active' : ''}
+          href="#ingredients"
+          className={activeSection === 'ingredients' ? 'active' : ''}
           onClick={handleLinkClick}
         >
-          Menu
+          Ingredients
         </a>
         <a
           href="#contact"

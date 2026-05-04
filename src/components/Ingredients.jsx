@@ -23,7 +23,7 @@ const ingredients = [
 
 function Ingredients() {
   return (
-    <section id="menu" className="section">
+    <section id="ingredients" className="section">
       {/* Cursive label above the title */}
       <span className="section-label reveal">Ingredients</span>
 
